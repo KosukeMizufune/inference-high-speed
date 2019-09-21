@@ -1,33 +1,15 @@
 import argparse
 
-import chainer
-from chainer import serializers
+from chainer import serializers, cuda
 from chainercv.links import SSD300
 from PIL import Image
 import numpy as np
 
-from utils import time_watch
+from utils import stop_watch
 
 
-@time_watch
-def infer(model_path, img_path=None, gpu_id=0):
-    model = SSD300(n_fg_class=20)
-    model.use_preset('evaluate')
-    if model_path.endswith('.npz'):
-        serializers.load_npz(model_path, model)
-    elif model_path:
-        serializers.load_npz(model_path, model, 'updater/model:main/predictor/')
-    else:
-        raise ValueError('You must specify "model_path"')
-
-    if gpu_id >= 0:
-        chainer.cuda.get_device_from_id(0).use()
-        model.to_gpu(gpu_id)
-
-    img = Image.open(img_path)
-    img = np.array(img, dtype=np.float32).transpose(2, 0, 1)
-    img = img[np.newaxis, ...]
-
+@stop_watch
+def infer(img):
     _ = model(img)
 
 
@@ -38,4 +20,23 @@ if __name__ == "__main__":
     parser.add_argument('--gpu_id', type=int, default=0)
 
     args = parser.parse_args()
-    infer(args.model_path, args.img_path, args.gpu_id)
+
+    model = SSD300(n_fg_class=20)
+    model.use_preset('evaluate')
+    if args.model_path.endswith('.npz'):
+        serializers.load_npz(args.model_path, model)
+    elif args.model_path:
+        serializers.load_npz(args.model_path, model, 'updater/model:main/predictor/')
+    else:
+        raise ValueError('You must specify "model_path"')
+
+    if args.gpu_id >= 0:
+        cuda.get_device_from_id(args.gpu_id).use()
+        model.to_gpu(args.gpu_id)
+    xp = cuda.get_array_module(model)
+
+    img = Image.open(args.img_path)
+    img = xp.array(img, dtype=xp.float32).transpose(2, 0, 1)
+    img = img[np.newaxis, ...]
+
+    infer(img)
