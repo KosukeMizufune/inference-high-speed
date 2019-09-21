@@ -8,7 +8,7 @@ import os
 def stop_watch(func):
     logger = getLogger(__name__)
     logger.setLevel(logging.INFO)
-    if not os.path.exists('log/inference.log'):
+    if not os.path.exists('log'):
         os.mkdir('log')
     file_handler = FileHandler('log/inference.log')
     handler_format = Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
