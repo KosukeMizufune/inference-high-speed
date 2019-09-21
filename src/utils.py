@@ -5,7 +5,7 @@ import time
 import os
 
 
-def time_watch(func):
+def stop_watch(func):
     logger = getLogger(__name__)
     logger.setLevel(logging.INFO)
     if not os.path.exists('log/inference.log'):
