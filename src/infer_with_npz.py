@@ -3,7 +3,6 @@ import argparse
 from chainer import serializers, cuda
 from chainercv.links import SSD300
 from PIL import Image
-import numpy as np
 
 from utils import stop_watch
 
@@ -37,6 +36,6 @@ if __name__ == "__main__":
 
     img = Image.open(args.img_path)
     img = xp.array(img, dtype=xp.float32).transpose(2, 0, 1)
-    img = img[np.newaxis, ...]
+    img = img[xp.newaxis, ...]
 
     infer(img)
