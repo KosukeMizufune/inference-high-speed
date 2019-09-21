@@ -8,8 +8,8 @@ from utils import stop_watch
 
 
 @stop_watch
-def infer(img):
-    _ = model(img)
+def infer(img, model):
+    _ = model.predict(img)
 
 
 if __name__ == "__main__":
@@ -38,4 +38,4 @@ if __name__ == "__main__":
     img = xp.array(img, dtype=xp.float32).transpose(2, 0, 1)
     img = img[xp.newaxis, ...]
 
-    infer(img)
+    infer(img, model)
