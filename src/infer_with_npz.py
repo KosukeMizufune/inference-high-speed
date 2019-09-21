@@ -3,6 +3,7 @@ import argparse
 from chainer import serializers, cuda
 from chainercv.links import SSD300
 from PIL import Image
+import numpy as np
 
 from utils import stop_watch
 
@@ -32,10 +33,9 @@ if __name__ == "__main__":
     if args.gpu_id >= 0:
         cuda.get_device_from_id(args.gpu_id).use()
         model.to_gpu(args.gpu_id)
-    xp = model.xp
 
     img = Image.open(args.img_path)
-    img = xp.array(img, dtype=xp.float32).transpose(2, 0, 1)
-    img = img[xp.newaxis, ...]
+    img = np.array(img, dtype=np.float32).transpose(2, 0, 1)
+    img = img[np.newaxis, ...]
 
     infer(img, model)
