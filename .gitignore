@@ -3,3 +3,6 @@
 .DS_Store
 snapshot*
 *.log
+*.onnx
+*.engine
+*.caffemodel
