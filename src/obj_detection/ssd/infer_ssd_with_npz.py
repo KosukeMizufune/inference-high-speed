@@ -5,7 +5,7 @@ from chainercv.links import SSD300
 from PIL import Image
 import numpy as np
 
-from utils import stop_watch
+from local_lib.utils import stop_watch
 
 
 @stop_watch

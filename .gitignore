@@ -7,3 +7,4 @@ snapshot*
 *.engine
 *.caffemodel
 *.npz
+lib
