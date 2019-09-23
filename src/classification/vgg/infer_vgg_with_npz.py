@@ -1,11 +1,12 @@
 import argparse
 
-from chainer import cuda, Chain, initializers, serializers
+from chainer import cuda
 from chainer import links as L
 from PIL import Image
 import numpy as np
 
 from local_lib.utils import stop_watch
+
 
 @stop_watch
 def infer(img, model):
@@ -14,7 +15,6 @@ def infer(img, model):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    
     parser.add_argument('--img_path', type=str, default=None)
     parser.add_argument('--gpu_id', type=int, default=0)
 
