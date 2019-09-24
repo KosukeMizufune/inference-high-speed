@@ -40,7 +40,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--engine_path', type=str, default=None)
     parser.add_argument('--img_path', type=str, default=None)
-    parser.add_argument('--img_size', int, default=224)
+    parser.add_argument('--img_size', type=int, default=224)
 
     args = parser.parse_args()
 
