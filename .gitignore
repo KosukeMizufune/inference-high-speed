@@ -8,4 +8,4 @@ snapshot*
 *.engine
 *.caffemodel
 *.npz
-lib
+lib/*
