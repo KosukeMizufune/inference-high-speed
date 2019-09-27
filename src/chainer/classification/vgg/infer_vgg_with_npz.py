@@ -6,7 +6,7 @@ from chainer import links as L
 from PIL import Image
 import numpy as np
 
-from local_lib.utils import stop_watch
+from local_lib.utils.utils import stop_watch
 
 
 @stop_watch

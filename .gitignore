@@ -1,11 +1,12 @@
 *.pyc
 .idea/
 .DS_Store
+lib/*
+!.gitkeep
 snapshot*
 *.log
 *.onnx
 *.engine
 *.caffemodel
 *.npz
-lib
-!.gitkeep
+

@@ -7,8 +7,8 @@ from PIL import Image
 import pycuda.driver as cuda
 import pycuda.autoinit
 
-from local_lib import common
-from local_lib.utils import stop_watch
+from local_lib.tensorrt import common
+from local_lib.utils.utils import stop_watch
 
 TRT_LOGGER = trt.Logger(trt.Logger.INFO)
 
