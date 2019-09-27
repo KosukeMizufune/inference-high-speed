@@ -1,5 +1,6 @@
 import argparse
 
+import chainer
 from chainer import cuda
 from chainer import links as L
 from PIL import Image
@@ -10,7 +11,9 @@ from local_lib.utils import stop_watch
 
 @stop_watch
 def infer(img, model):
-    _ = model(img)
+    with chainer.using_config('train', False), \
+         chainer.using_config('enable_backprop', False):
+        _ = model(img)
 
 
 if __name__ == "__main__":
