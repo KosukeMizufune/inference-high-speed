@@ -8,9 +8,10 @@ import pycuda.driver as cuda
 import pycuda.autoinit
 
 from local_lib.tensorrt import common
-from local_lib.utils.utils import stop_watch
+from local_lib.utils.time import stop_watch
 
 TRT_LOGGER = trt.Logger(trt.Logger.INFO)
+log_filename = "tensorrt_vgg"
 
 
 def load_engine(engine_path):
@@ -19,7 +20,7 @@ def load_engine(engine_path):
             return runtime.deserialize_cuda_engine(f.read())
 
 
-@stop_watch
+@stop_watch(log_filename)
 def do_inference(context, bindings, inputs, outputs, stream, batch_size=1):
     [cuda.memcpy_htod(inp.device, inp.host) for inp in inputs]
     context.execute(
