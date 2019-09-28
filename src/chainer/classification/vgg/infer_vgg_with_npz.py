@@ -8,8 +8,10 @@ import numpy as np
 
 from local_lib.utils.utils import stop_watch
 
+log_filename = 'chainer_vgg'
 
-@stop_watch
+
+@stop_watch(log_filename)
 def infer(img, model):
     with chainer.using_config('train', False), \
          chainer.using_config('enable_backprop', False):
@@ -35,4 +37,4 @@ if __name__ == "__main__":
         model.to_gpu(args.gpu_id)
         img = cuda.to_gpu(img)
 
-    infer(img, model)
+    _ = infer(img, model)

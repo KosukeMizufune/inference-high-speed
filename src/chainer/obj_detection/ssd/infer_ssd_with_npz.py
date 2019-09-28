@@ -7,8 +7,10 @@ import numpy as np
 
 from local_lib.utils.utils import stop_watch
 
+log_filename = "chainer_ssd"
 
-@stop_watch
+
+@stop_watch(log_filename)
 def infer(img, model):
     _ = model.predict(img)
 
