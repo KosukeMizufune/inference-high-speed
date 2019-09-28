@@ -1,26 +1,17 @@
 from functools import wraps
-import logging
-from logging import getLogger, FileHandler, Formatter
 import time
-import os
+
+from local_lib.utils.logging import get_logger
 
 
-def stop_watch(func):
-    logger = getLogger(__name__)
-    logger.setLevel(logging.INFO)
-    if not os.path.exists('log'):
-        os.mkdir('log')
-    file_handler = FileHandler('log/inference.log')
-    handler_format = Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    file_handler.setFormatter(handler_format)
-    logger.addHandler(file_handler)
-
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        start_time = time.time()
-        result = func(*args, **kwargs)
-        elapsed_itme = time.time() - start_time
-        logger.info(elapsed_itme)
-        return result
-
-    return wrapper
+def stop_watch(version):
+    def _stop_watch(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            start_time = time.time()
+            result = func(*args, **kwargs)
+            elapsed_time = time.time() - start_time
+            get_logger(version).info(elapsed_time)
+            return result
+        return wrapper
+    return _stop_watch
