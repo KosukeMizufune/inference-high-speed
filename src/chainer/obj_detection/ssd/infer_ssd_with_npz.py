@@ -5,7 +5,7 @@ from chainercv.links import SSD300
 from PIL import Image
 import numpy as np
 
-from local_lib.utils.utils import stop_watch
+from local_lib.utils.time import stop_watch
 
 log_filename = "chainer_ssd"
 
